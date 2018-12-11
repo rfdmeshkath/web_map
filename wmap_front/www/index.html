@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Web Mapping</title>
+    <meta charset="utf-8" />
+    <link
+        rel="stylesheet"
+        href="http://cdn.leafletjs.com/leaflet-0.7/leaflet.css"
+    />
+    <style type="text/css">
+      html, body, #map {
+          width: 100%;
+          height: 100%;
+          margin: 0;
+      }
+    </style>
+</head>
+<body>
+
+    <div id="map" ></div>
+
+    <script
+        src="http://cdn.leafletjs.com/leaflet-0.7/leaflet.js">
+    </script>
+
+    <script>
+
+	var planes = [
+		['Smithfield North | Available: 10' , 53.349562,-6.278198],
+        ['Parnell Square North | Available: 0' , 53.353462,-6.265305],
+        ['Clonmel Street | Available: 0' , 53.336021,-6.26298],
+        ['Avondale Road | Available: 0' , 53.359405,-6.276142],
+        ['Mount Street Lower | Available: 0' , 53.33796,-6.24153],
+        ['Christchurch Place | Available: 5' , 53.343368,-6.27012],
+        ['Grantham Street | Available: 2' , 53.334123,-6.265436],
+        ['Pearse Street | Available: 27' , 53.344304,-6.250427],
+        ['York Street East | Available: 1' , 53.338755,-6.262003],
+        ['Excise Walk | Available: 21' , 53.347777,-6.244239],
+        ['Fitzwilliam Square West | Available: 0' , 53.336074,-6.252825],
+        ['Portobello Road | Available: 13' , 53.330091,-6.268044],
+        ['St. James Hospital (Central) | Available: 1' , 53.339983,-6.295594],
+        ['Parnell Street | Available: 11' , 53.350929,-6.265125],
+        ['Frederick Street South | Available: 0' , 53.341515,-6.256853],
+        ['Fownes Street Upper | Available: 14' , 53.344603,-6.263371],
+        ['Clarendon Row | Available: 16' , 53.340927,-6.262501],
+        ['Custom House | Available: 30' , 53.348279,-6.254662],
+        ['Rathdown Road | Available: 8' , 53.35893,-6.280337],
+        ['North Circular Road (O\'Connell\'s) | Available: 19' , 53.357841,-6.251557],
+        ['Hanover Quay | Available: 0' , 53.344115,-6.237153],
+        ['Oliver Bond Street | Available: 12' , 53.343893,-6.280531],
+        ['Collins Barracks Museum | Available: 7' , 53.347477,-6.28525],
+        ['Brookfield Road | Available: 8' , 53.339005,-6.300217],
+        ['Benson Street | Available: 0' , 53.344153,-6.233451],
+        ['Earlsfort Terrace | Available: 0' , 53.334019,-6.258371],
+        ['Golden Lane | Available: 1' , 53.340803,-6.267732],
+        ['Deverell Place | Available: 23' , 53.351464,-6.255265],
+        ['Wilton Terrace (Park) | Available: 0' , 53.333653,-6.248345],
+        ['John Street West | Available: 4' , 53.343105,-6.277167],
+        ['Fenian Street | Available: 9' , 53.341428,-6.24672],
+        ['Merrion Square South | Available: 17' , 53.338614,-6.248606],
+        ['South Dock Road | Available: 1' , 53.341833,-6.231291],
+        ['City Quay | Available: 13' , 53.346637,-6.246154],
+        ['Exchequer Street | Available: 4' , 53.343034,-6.263578],
+        ['The Point | Available: 17' , 53.346867,-6.230852],
+        ['Hatch Street | Available: 0' , 53.33403,-6.260714],
+        ['Lime Street | Available: 11' , 53.346026,-6.243576],
+        ['Charlemont Street | Available: 7' , 53.330662,-6.260177],
+        ['Kilmainham Gaol | Available: 14' , 53.342113,-6.310015],
+        ['Hardwicke Place | Available: 8' , 53.357043,-6.263232],
+        ['Wolfe Tone Street | Available: 0' , 53.348875,-6.267459],
+        ['Francis Street | Available: 2' , 53.342081,-6.275233],
+        ['Greek Street | Available: 3' , 53.346874,-6.272976],
+        ['Guild Street | Available: 29' , 53.347932,-6.240928],
+        ['Herbert Place | Available: 18' , 53.334432,-6.245575],
+        ['High Street | Available: 1' , 53.343565,-6.275071],
+        ['North Circular Road | Available: 30' , 53.359624,-6.260348],
+        ['Western Way | Available: 1' , 53.354929,-6.269425],
+        ['Talbot Street | Available: 36' , 53.350974,-6.25294],
+        ['Newman House | Available: 0' , 53.337132,-6.26059],
+        ['Sir Patrick\'s Dun | Available: 2' , 53.339218,-6.240642],
+        ['New Central Bank | Available: 0' , 53.347122,-6.234749],
+        ['Grangegorman Lower (Central) | Available: 0' , 53.355173,-6.278424],
+        ['King Street North | Available: 3' , 53.350291,-6.273507],
+        ['Killarney Street | Available: 16' , 53.354845,-6.247579],
+        ['Herbert Street | Available: 0' , 53.335742,-6.24551],
+        ['Custom House Quay | Available: 15' , 53.347884,-6.248048],
+        ['Molesworth Street | Available: 1' , 53.341288,-6.258117],
+        ['Georges Quay | Available: 18' , 53.347508,-6.252192],
+        ['Kilmainham Lane | Available: 5' , 53.341805,-6.305085],
+        ['Mount Brown | Available: 9' , 53.341645,-6.29719],
+        ['Market Street South | Available: 18' , 53.342296,-6.287661],
+        ['Kevin Street | Available: 2' , 53.337757,-6.267699],
+        ['Eccles Street East | Available: 2' , 53.358115,-6.265601],
+        ['Grand Canal Dock | Available: 0' , 53.342638,-6.238695],
+        ['Merrion Square East | Available: 0' , 53.339434,-6.246548],
+        ['York Street West | Available: 5' , 53.339334,-6.264699],
+        ['St. Stephen\'s Green South | Available: 0' , 53.337494,-6.26199],
+        ['Denmark Street Great | Available: 0' , 53.35561,-6.261397],
+        ['Royal Hospital | Available: 10' , 53.343897,-6.29706],
+        ['Heuston Station (Car Park) | Available: 40' , 53.346985,-6.297804],
+        ['Grangegorman Lower (North) | Available: 5' , 53.355954,-6.278378],
+        ['St. Stephen\'s Green East | Available: 18' , 53.337824,-6.256035],
+        ['Heuston Station (Central) | Available: 40' , 53.346603,-6.296924],
+        ['Townsend Street | Available: 20' , 53.345922,-6.254614],
+        ['George\'s Lane | Available: 12' , 53.35023,-6.279696],
+        ['Phibsborough Road | Available: 8' , 53.356307,-6.273717],
+        ['Eccles Street | Available: 7' , 53.359246,-6.269779],
+        ['Portobello Harbour | Available: 11' , 53.330362,-6.265163],
+        ['Mater Hospital | Available: 11' , 53.359967,-6.264828],
+        ['Blessington Street | Available: 0' , 53.356769,-6.26814],
+        ['James Street | Available: 25' , 53.343456,-6.287409],
+        ['Mountjoy Square East | Available: 2' , 53.356717,-6.256359],
+        ['Merrion Square West | Available: 12' , 53.339764,-6.251988],
+        ['Convention Centre | Available: 0' , 53.34744,-6.238523],
+        ['Hardwicke Street | Available: 0' , 53.355473,-6.264423],
+        ['Parkgate Street | Available: 37' , 53.347972,-6.291804],
+        ['Smithfield | Available: 5' , 53.347692,-6.278214],
+        ['Dame Street | Available: 14' , 53.344007,-6.266802],
+        ['Heuston Bridge (South) | Available: 17' , 53.347106,-6.292041],
+        ['Cathal Brugha Street | Available: 11' , 53.352149,-6.260533],
+        ['Sandwith Street | Available: 16' , 53.345203,-6.247163],
+        ['Buckingham Street Lower | Available: 12' , 53.353331,-6.249319],
+        ['Rothe Abbey | Available: 9' , 53.338776,-6.30395],
+        ['Charleville Road | Available: 6' , 53.359157,-6.281866],
+        ['Princes Street / O\'Connell Street | Available: 21' , 53.349013,-6.260311],
+        ['Upper Sherrard Street | Available: 4' , 53.358437,-6.260641],
+        ['Fitzwilliam Square East | Available: 2' , 53.335211,-6.2509],
+        ['Grattan Street | Available: 0' , 53.339629,-6.243778],
+        ['St James Hospital (Luas) | Available: 21' , 53.341359,-6.292951],
+        ['Harcourt Terrace | Available: 1' , 53.332763,-6.257942],
+        ['Bolton Street | Available: 0' , 53.351182,-6.269859],
+        ['Strand Street Great | Available: 2' , 53.347082,-6.264192],
+        ['Jervis Street | Available: 0' , 53.3483,-6.266651],
+        ['Ormond Quay Upper | Available: 1' , 53.346057,-6.268001],
+        ['Barrow Street | Available: 1' , 53.341655,-6.236198],
+        ['Grangegorman Lower (South) | Available: 14' , 53.354663,-6.278681],
+        ['Mountjoy Square West | Available: 1' , 53.356299,-6.258586],
+        ['Wilton Terrace | Available: 1' , 53.332383,-6.252717],
+        ['Emmet Road | Available: 15' , 53.340714,-6.308191],
+        ['Heuston Bridge (North) | Available: 40' , 53.347802,-6.292432],
+        ['Leinster Street South | Available: 17' , 53.34218,-6.254485],
+        ['Blackhall Place | Available: 4' , 53.3488,-6.281637]
+		];
+
+        var map = L.map('map').setView([53.347082, -6.264192], 14);
+        mapLink =
+            '<a href="http://openstreetmap.org">OpenStreetMap</a>';
+        L.tileLayer(
+            'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '&copy; ' + mapLink + ' Contributors',
+            maxZoom: 18,
+            }).addTo(map);
+
+		for (var i = 0; i < planes.length; i++) {
+			marker = new L.marker([planes[i][1],planes[i][2]])
+				.bindPopup(planes[i][0])
+				.addTo(map);
+		}
+
+    let dataSet = [];
+    $.ajax({
+        method: 'GET',
+        url: proxyurl + "http://51.140.240.121:8080/api/v1/all_bike_points/",
+        data:{'lat':position.coords.latitude,'long':position.coords.longitude},
+        success: function (bike_data) {
+            alert(bike_data);
+        },
+        error(){alert("No Stations available")}
+    });
+
+    </script>
+</body>
