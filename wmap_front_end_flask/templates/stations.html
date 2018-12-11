@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<title>Dublin Bike</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+{{db_map.js}}
+<body>
+
+<div class="w3-container">
+  <div class="w3-bar w3-light-grey w3-border">
+    <a href="/show_all_stations" class="w3-bar-item w3-button w3-mobile">All Bike Stations</a>
+    <a href="/routes_to_nearer_stations" class="w3-bar-item w3-button w3-mobile">Routes to Nearer Stations</a>
+    <a href="/nearer_station_to_a_address" class="w3-bar-item w3-button w3-mobile">Nearer Stations to a Address</a>
+ </div>
+    {{ db_map.html}}
+</div>
+
+</body>
+</html>
